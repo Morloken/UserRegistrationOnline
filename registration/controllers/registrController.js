@@ -45,3 +45,7 @@ let loginUser = (req, res) => {
     res.send('Please enter Username and Password!');
   }
 };
+module.exports = {
+  registerUser,
+  loginUser,
+};
