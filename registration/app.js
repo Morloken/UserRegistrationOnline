@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
 const bcrypt = require('bcryptjs');
-const db = require('./db'); 
+const db = require("./config/db"); 
 
 const registrController = require('./controllers/registrController'); // Controller for handling registration and login
 const validateMiddleware = require('./middleware/validateMiddleware'); // Middleware for validating inputs
