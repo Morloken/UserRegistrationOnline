@@ -1,45 +1,47 @@
 const bcrypt = require('bcryptjs');
 const db = require('../config/db');
+const userModel = require('../models/userModel');
 
-exports.registerUser = (req, res) => {
-  const { username, password } = req.body;
 
-  if (!username || !password) {
-    return res.status(400).send('Please enter Username and Password!');
-  }
-
-  bcrypt.hash(password, 10, (err, hash) => {
-    if (err) throw err;
-
-    db.query('INSERT INTO users (username, password) VALUES (?, ?)', [username, hash], (err, results) => {
+let registerUser = (req, res) => {
+  let { username, password } = req.body;
+  if (username && password) {
+    bcrypt.hash(password, 10, (err, hash) => {
       if (err) throw err;
-      res.redirect('/login');
-    });
-  });
-};
-
-exports.loginUser = (req, res) => {
-  const { username, password } = req.body;
-
-  if (!username || !password) {
-    return res.status(400).send('Please enter Username and Password!');
-  }
-
-  db.query('SELECT * FROM users WHERE username = ?', [username], (err, results) => {
-    if (err) throw err;
-
-    if (results.length > 0) {
-      bcrypt.compare(password, results[0].password, (err, isMatch) => {
-        if (isMatch) {
-          req.session.loggedin = true;
-          req.session.username = username;
-          res.redirect('/home');
+      userModel.createUser(username, hash, (err, results) => {
+        if (err) {
+          res.send('Error creating user!');
         } else {
-          res.status(400).send('Incorrect Password!');
+          res.redirect('/login');
         }
       });
-    } else {
-      res.status(400).send('Username not found!');
-    }
-  });
+    });
+  } else {
+    res.send('Please enter Username and Password!');
+  }
+};
+
+let loginUser = (req, res) => {
+  let { username, password } = req.body;
+  if (username && password) {
+    userModel.findUserByUsername(username, (err, user) => {
+      if (err) throw err;
+      if (user) {
+        bcrypt.compare(password, user.password, (err, isMatch) => {
+          if (err) throw err;
+          if (isMatch) {
+            req.session.loggedin = true;
+            req.session.username = username;
+            res.redirect('/home');
+          } else {
+            res.send('Incorrect Password!');
+          }
+        });
+      } else {
+        res.send('Username not found!');
+      }
+    });
+  } else {
+    res.send('Please enter Username and Password!');
+  }
 };
