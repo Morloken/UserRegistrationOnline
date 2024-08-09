@@ -21,6 +21,14 @@ app.use(session({
 app.set('view engine', 'ejs');
 
 // Routes
+app.get("/", (req, res) => {
+  if (req.session.loggedin) {
+    res.redirect('/home'); 
+  } else {
+    res.redirect('/register');
+  }
+});
+
 app.get('/register', (req, res) => {
   res.render('register'); 
 });
@@ -40,6 +48,7 @@ app.get('/home', (req, res) => { // Protecting routes with session validation
     res.send('Please login to view this page!');
   }
 });
+
 
 app.listen(3000, () => {
   console.log('Server is running on port 3000');
