@@ -1,11 +1,11 @@
-const mysql = require('mysql');
+const mysql = require('mysql2');
 
 const connection = mysql.createConnection({
   host: 'localhost',
   port: 3307,
   user: 'root',
   password: 'password',
-  database: 'registration_database_name'
+  database: 'registration_database'
 });
 
 connection.connect((err) => {
@@ -14,3 +14,4 @@ connection.connect((err) => {
 });
 
 module.exports = connection;
+//requirement
