@@ -1,5 +1,4 @@
 const express = require('express');
-const router = express.Router();
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
@@ -11,6 +10,9 @@ const path = require('path');
 const registrController = require('./controllers/registrController'); 
 const validateMiddleware = require('./middleware/validateMiddleware'); 
 
+const app = express();
+const port = 3000;
+const router = express.Router();
 
 router.use(bodyParser.urlencoded({ extended: true }));
 router.use(cookieParser());
@@ -53,4 +55,12 @@ router.get('/home.html', (req, res) => { // Protecting routes with session valid
   }
 });
 
+app.use('/', router);
+
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
+});
+
+module.exports = app;
 module.exports = router;
+
