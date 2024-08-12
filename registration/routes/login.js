@@ -1,17 +1,20 @@
 const express = require('express');
 const router = express.Router();
-const bcrypt = require('bcrypt');
-const connection = require('../db');
+const bcrypt = require('bcryptjs'); 
+const db = require('../config/db'); 
+const { validateLogin } = require('../middleware/validateMiddleware');
+const { loginUser } = require('../controllers/registrController');
 
-router.get('/login', (req, res) => {
-  res.render('login');
+router.get('/login.html', (req, res) => {
+  res.sendFile(path.join(__dirname, '../views/login.html'));
 });
 
-router.post('/login', (req, res) => {
+router.post('/login.html', validateLogin, loginUser);
+router.post('/login.html', (req, res) => {
   const { email, password } = req.body;
 
   const query = 'SELECT * FROM users WHERE email = ?';
-  connection.query(query, [email], async (err, results) => {
+  db.query(query, [email], async (err, results) => {
     if (err) throw err;
 
     if (results.length === 0) {
@@ -25,11 +28,15 @@ router.post('/login', (req, res) => {
       return res.status(400).send('Invalid credentials.');
     }
 
+    
     req.session.userId = user.id;
-    req.session.cookie.maxAge = 60 * 1000; //excactly 1 minute
+    req.session.loggedin = true;
 
-    res.redirect('/home');
+    req.session.cookie.maxAge = 60 * 1000; // Exactly 1 minute
+
+    res.redirect('/home.html');
   });
 });
 
 module.exports = router;
+
