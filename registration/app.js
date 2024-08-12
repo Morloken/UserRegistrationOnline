@@ -4,8 +4,7 @@ const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const path = require('path');
 
-// require('dotenv').config({path:__dirname+'/.env'});
-// require('dotenv').config();
+require('dotenv').config(); 
 
 const registrController = require('./controllers/registrController'); 
 const validateMiddleware = require('./middleware/validateMiddleware'); 
@@ -17,23 +16,21 @@ const router = express.Router();
 router.use(bodyParser.urlencoded({ extended: true }));
 router.use(cookieParser());
 router.use(session({
-  secret: 'secret', 
+  secret: process.env.SESSION_SECRET || 'secret', 
   resave: true,
   saveUninitialized: true,
   cookie: { maxAge: 60000 } // Session expires in 1 minute
 }));
 
 
-router.use('/static', express.static(path.join(__dirname, '/views')));
+router.use('/static', express.static(path.join(__dirname, 'public')));
 
 // Routes
 router.get('/', (req, res) => {
   if (req.session.loggedin) {
     res.sendFile(path.join(__dirname, 'views', 'home.html'));
-
   } else {
     res.sendFile(path.join(__dirname, 'views', 'register.html'));
-
   }
 });
 
@@ -49,7 +46,7 @@ router.get('/login', (req, res) => {
 
 router.post('/login', validateMiddleware.validateLogin, registrController.loginUser);
 
-router.get('/home', (req, res) => { // Protecting routes with session validation
+router.get('/home', (req, res) => { 
   if (req.session.loggedin) {
     res.sendFile(path.join(__dirname, 'views', 'home.html'));
   } else {
@@ -64,5 +61,3 @@ app.listen(port, () => {
 });
 
 module.exports = app;
-
-
