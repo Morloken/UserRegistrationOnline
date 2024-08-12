@@ -13,16 +13,16 @@ router.get('/register', (req, res) => {
 });
 
 router.post('/register', async (req, res) => {
-  const { username, email, password } = req.body;
+  const { username,  password } = req.body;
 
-  if (!username || !email || !password) {
+  if (!username  || !password) {
     return res.status(400).send('All fields are required.');
   }
 
   const hashedPassword = await bcrypt.hash(password, 10);
 
-  const query = 'INSERT INTO users (username, email, password) VALUES (?, ?, ?)';
-  connection.query(query, [username, email, hashedPassword], (err) => {
+  const query = 'INSERT INTO users (username, password) VALUES (?, ?, ?)';
+  connection.query(query, [username, hashedPassword], (err) => {
     if (err) throw err;
     res.redirect('/login');
 
