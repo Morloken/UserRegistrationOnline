@@ -4,10 +4,11 @@ const path = require('path');
 
 router.get('/home', (req, res) => {
   if (!req.session.userId) {
-    return res.redirect('../views/login.html');
+    // return res.redirect('../views/login.html');
+    return res.redirect('/login');
   }
 
-  res.sendFile(path.join(__dirname, '../views/home.html')); 
+  res.sendFile(path.join(__dirname,'views',  'home.html')); 
 });
 
 module.exports = router;

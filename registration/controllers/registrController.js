@@ -7,7 +7,9 @@ const registerUser = async (req, res) => {
     try {
       const hash = await bcrypt.hash(password, 10);
       await userModel.createUser(username, hash);
-      res.redirect('../views/login.html');
+      // res.redirect('../views/login.html');
+      res.redirect('/login');
+
     } catch (err) {
       res.status(500).send('Error creating user!');
     }
@@ -26,7 +28,8 @@ const loginUser = async (req, res) => {
         if (isMatch) {
           req.session.loggedin = true;
           req.session.username = username;
-          res.redirect('../views/home.html');
+          // res.redirect('../views/home.html');
+          res.redirect('/home');
         } else {
           res.status(400).send('Incorrect Password!');
         }

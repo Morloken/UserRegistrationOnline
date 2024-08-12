@@ -6,7 +6,8 @@ const { validateLogin } = require('../middleware/validateMiddleware');
 const { loginUser } = require('../controllers/registrController');
 
 router.get('/login', (req, res) => {
-  res.sendFile(path.join(__dirname, '../views/login.html'));
+  res.sendFile(path.join(__dirname, 'views', 'login.html'));
+
 });
 
 router.post('/login', validateLogin, loginUser);

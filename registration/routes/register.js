@@ -6,7 +6,8 @@ const connection = require('../config/db');
 const path = require('path');
 
 router.get('/register', (req, res) => {
-  res.sendFile(path.join(__dirname, '../views/register.html'));
+  res.sendFile(path.join(__dirname, '..', 'views', 'register.html'));
+
 
   
 });
@@ -23,7 +24,8 @@ router.post('/register', async (req, res) => {
   const query = 'INSERT INTO users (username, email, password) VALUES (?, ?, ?)';
   connection.query(query, [username, email, hashedPassword], (err) => {
     if (err) throw err;
-    res.redirect('../views/login.html');
+    res.redirect('/login');
+
   });
 });
 
