@@ -5,11 +5,15 @@ const db = require('../config/db');
 const { validateLogin } = require('../middleware/validateMiddleware');
 const { loginUser } = require('../controllers/registrController');
 
-router.get('/login.html', (req, res) => {
+router.get('/login', (req, res) => {
   res.sendFile(path.join(__dirname, '../views/login.html'));
 });
 
-router.post('/login.html', validateLogin, loginUser);
+router.post('/login', validateLogin, loginUser);
+
+module.exports = router;
+
+
 // router.post('/login.html', (req, res) => {
 //   const { email, password } = req.body;
 
@@ -37,6 +41,3 @@ router.post('/login.html', validateLogin, loginUser);
 //     res.redirect('/home.html');
 //   });
 // });
-
-module.exports = router;
-

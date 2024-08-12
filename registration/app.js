@@ -24,32 +24,32 @@ router.use(session({
 }));
 
 
-router.use('/static', express.static(path.join(__dirname, './views')));
+router.use('/static', express.static(path.join(__dirname, '/views')));
 
 // Routes
 router.get('/', (req, res) => {
   if (req.session.loggedin) {
-    res.sendFile(path.join(__dirname, './views/home.html')); 
+    res.sendFile(path.join(__dirname, '/views/home.html')); 
   } else {
-    res.sendFile(path.join(__dirname, './views/register.html')); 
+    res.sendFile(path.join(__dirname, '/views/register.html')); 
   }
 });
 
-router.get('/register.html', (req, res) => {
-  res.sendFile(path.join(__dirname, './views/register.html')); 
+router.get('/register', (req, res) => {
+  res.sendFile(path.join(__dirname, '/views/register.html')); 
 });
 
-router.post('/register.html', validateMiddleware.validateRegistration, registrController.registerUser);
+router.post('/register', validateMiddleware.validateRegistration, registrController.registerUser);
 
-router.get('/login.html', (req, res) => {
-  res.sendFile(path.join(__dirname, './views/login.html')); 
+router.get('/login', (req, res) => {
+  res.sendFile(path.join(__dirname, '/views/login.html')); 
 });
 
-router.post('/login.html', validateMiddleware.validateLogin, registrController.loginUser);
+router.post('/login', validateMiddleware.validateLogin, registrController.loginUser);
 
-router.get('/home.html', (req, res) => { // Protecting routes with session validation
+router.get('/home', (req, res) => { // Protecting routes with session validation
   if (req.session.loggedin) {
-    res.sendFile(path.join(__dirname, './views/home.html')); 
+    res.sendFile(path.join(__dirname, '/views/home.html')); 
   } else {
     res.send('Please login to view this page!');
   }
@@ -62,5 +62,5 @@ app.listen(port, () => {
 });
 
 module.exports = app;
-module.exports = router;
+
 
