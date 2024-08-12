@@ -23,7 +23,7 @@ router.post('/register', async (req, res) => {
   const query = 'INSERT INTO users (username, email, password) VALUES (?, ?, ?)';
   connection.query(query, [username, email, hashedPassword], (err) => {
     if (err) throw err;
-    res.redirect('/login.html');
+    res.redirect('../views/login.html');
   });
 });
 

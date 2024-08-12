@@ -4,7 +4,7 @@ const path = require('path');
 
 router.get('/home', (req, res) => {
   if (!req.session.userId) {
-    return res.redirect('/login.html');
+    return res.redirect('../views/login.html');
   }
 
   res.sendFile(path.join(__dirname, '../views/home.html')); 
