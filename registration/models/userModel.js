@@ -13,8 +13,11 @@ const findUserByUsername = (username, callback) => {
 
 const createUser = (username, hashedPassword, callback) => {
   db.query('INSERT INTO users (username, password) VALUES (?, ?)', [username, hashedPassword], (err, results) => {
-    if (err) return callback(err);
-    callback(null, results);
+    if (err) {
+      
+      console.error('Error creating user:', err);
+      return;
+    }
   });
 };
 

@@ -1,50 +1,46 @@
 const bcrypt = require('bcryptjs');
-const db = require('../config/db');
 const userModel = require('../models/userModel');
 
-
-let registerUser = (req, res) => {
-  let { username, password } = req.body;
+const registerUser = async (req, res) => {
+  const { username, password } = req.body;
   if (username && password) {
-    bcrypt.hash(password, 10, (err, hash) => {
-      if (err) throw err;
-      userModel.createUser(username, hash, (err, results) => {
-        if (err) {
-          res.send('Error creating user!');
-        } else {
-          res.redirect('/login');
-        }
-      });
-    });
+    try {
+      const hash = await bcrypt.hash(password, 10);
+      await userModel.createUser(username, hash);
+      res.redirect('/login.html');
+    } catch (err) {
+      res.status(500).send('Error creating user!');
+    }
   } else {
-    res.send('Please enter Username and Password!');
+    res.status(400).send('Please enter Username and Password!');
   }
 };
 
-let loginUser = (req, res) => {
-  let { username, password } = req.body;
+const loginUser = async (req, res) => {
+  const { username, password } = req.body;
   if (username && password) {
-    userModel.findUserByUsername(username, (err, user) => {
-      if (err) throw err;
+    try {
+      const user = await userModel.findUserByUsername(username);
       if (user) {
-        bcrypt.compare(password, user.password, (err, isMatch) => {
-          if (err) throw err;
-          if (isMatch) {
-            req.session.loggedin = true;
-            req.session.username = username;
-            res.redirect('/home');
-          } else {
-            res.send('Incorrect Password!');
-          }
-        });
+        const isMatch = await bcrypt.compare(password, user.password);
+        if (isMatch) {
+          req.session.loggedin = true;
+          req.session.username = username;
+          res.redirect('/home.html');
+        } else {
+          res.status(400).send('Incorrect Password!');
+        }
       } else {
-        res.send('Username not found!');
+        res.status(400).send('Username not found!');
       }
-    });
+    } catch (err) {
+      res.status(500).send('Error processing request!');
+    }
   } else {
-    res.send('Please enter Username and Password!');
+    res.status(400).send('Please enter Username and Password!');
   }
 };
+
 module.exports = {
   registerUser,
   loginUser,
