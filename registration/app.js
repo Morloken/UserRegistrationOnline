@@ -18,30 +18,38 @@ app.use(session({
   cookie: { maxAge: 60000 } // Session expires in 1 minute
 }));
 
-app.set('view engine', 'ejs');
+app.set('view engine', 'html');
+app.engine('html', require('ejs').renderFile);
 
 // Routes
 app.get("/", (req, res) => {
   if (req.session.loggedin) {
-    res.redirect('/home'); 
+    res.redirect('/home.html'); 
+    
   } else {
-    res.redirect('/register');
+    res.redirect('/register.html');
+    
   }
 });
 
-app.get('/register', (req, res) => {
-  res.render('register'); 
+app.get('/register.html', (req, res) => {
+  res.render('register.html'); 
+  // res.sendFile(path.join(__dirname, 'views/register.html'));
 });
 
+app.post('/register.html', validateMiddleware.validateRegistration, registrController.registerUser);
 app.post('/register', validateMiddleware.validateRegistration, registrController.registerUser);
 
-app.get('/login', (req, res) => {
-  res.render('login'); 
+app.get('/login.html', (req, res) => {
+  res.render('login.html'); 
+
 });
 
-app.post('/login', validateMiddleware.validateLogin, registrController.loginUser);
+app.post('/login.html', validateMiddleware.validateLogin, registrController.loginUser);
 
-app.get('/home', (req, res) => { // Protecting routes with session validation
+
+app.get('/home.html', (req, res) => { // Protecting routes with session validation
+
   if (req.session.loggedin) {
     res.send(`Welcome back, ${req.session.username}!`);
   } else {
@@ -53,3 +61,4 @@ app.get('/home', (req, res) => { // Protecting routes with session validation
 app.listen(3000, () => {
   console.log('Server is running on port 3000');
 });
+
