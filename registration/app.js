@@ -50,7 +50,7 @@ router.get('/home', (req, res) => {
   if (req.session.loggedin) {
     res.sendFile(path.join(__dirname, 'views', 'home.html'));
   } else {
-    res.send('Please login to view this page!');
+    res.send('Please login to view this page! Go to previous page for login!');
     setTimeout(() => {
       res.redirect('/login');
     }, 2000);

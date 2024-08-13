@@ -16,7 +16,7 @@ router.post('/register', async (req, res) => {
   const { username,  password, dob, gender, country } = req.body;
 
   if (!username  || !password || !dob || !gender || !country) {
-    res.status(400).send('All fields are required.');
+    res.status(400).send('All fields are required. Please go to previous page!');
     return res.status(400);
   }
 

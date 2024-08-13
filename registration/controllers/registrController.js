@@ -11,11 +11,11 @@ const registerUser = async (req, res) => {
     } catch (err) {
       console.error('Error creating user:', err);
       res.status(500)
-      res.send('Error creating user!');
+      res.send('Error creating user! Please go to previous page!');
     }
   } else {
     res.status(400)
-    res.send('Please enter Username and Password!');
+    res.send('Please enter Username and Password! Please go to previous page!');
   }
 };
 
@@ -32,20 +32,20 @@ const loginUser = async (req, res) => {
           res.redirect('/home');
         } else {
           res.status(400)
-          res.send('Incorrect Password!');
+          res.send('Incorrect Password! Please go to previous page!');
         }
       } else {
         res.status(400)
-        res.send('Username not found!');
+        res.send('Username not found! Please go to previous page!');
       }
     } catch (err) {
       console.error('Error processing request:', err);
       res.status(500)
-      res.send('Error processing request!');
+      res.send('Error processing request! Please go to previous page!');
     }
   } else {
     res.status(400)
-    res.send('Please enter Username and Password!');
+    res.send('Please enter Username and Password! Please go to previous page!');
   }
 };
 

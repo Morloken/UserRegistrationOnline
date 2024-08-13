@@ -6,20 +6,20 @@ const validateRegistration = (req, res, next) => {
    
     if (!username || !password) {
       // return res.send('Please enter all required fields.');
-      return res.send('Please enter all required fields.');
+      return res.send('Please enter all required fields. Please go to previous page!');
     }
   
     
     const usernameRegex = /^[a-zA-Z0-9]{3,15}$/;
     if (!usernameRegex.test(username)) {// username is alphanumeric and within a specific length
-     return res.send('Username must be alphanumeric and between 3 and 15 characters long.');
+     return res.send('Username must be alphanumeric and between 3 and 15 characters long. Please go to previous page!');
 
     }
   
 
     const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
     if (!passwordRegex.test(password)) {
-      return res.send('Password must be at least 8 characters long and include at least one letter and one number.');
+      return res.send('Password must be at least 8 characters long and include at least one letter and one number. Please go to previous page!');
       
     }
 
@@ -43,7 +43,7 @@ const validateRegistration = (req, res, next) => {
   const validateLogin = (req, res, next) => {// middleware for login validation
     const { username, password} = req.body;
     if (!username || !password) {
-      return res.send('Please enter all required fields.');
+      return res.send('Please enter all required fields. Please go to previous page!');
     }
   
         //  to the next middleware/controller
