@@ -51,6 +51,9 @@ router.get('/home', (req, res) => {
     res.sendFile(path.join(__dirname, 'views', 'home.html'));
   } else {
     res.send('Please login to view this page!');
+    setTimeout(() => {
+      res.redirect('/login');
+    }, 2000);
   }
 });
 

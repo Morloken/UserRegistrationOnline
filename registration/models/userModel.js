@@ -14,9 +14,9 @@ const findUserByUsername = (username) => {
 };
 
 
-const createUser = (username, hashedPassword) => {
+const createUser = (username, hashedPassword, dob, gender, country) => {
   return new Promise((resolve, reject) => {
-    db.query('INSERT INTO users (username, password) VALUES (?, ?)', [username, hashedPassword], (err, results) => {
+    db.query('INSERT INTO users (username, password, dob, gender, country) VALUES (?, ?, ?, ?, ?)', [username, hashedPassword, dob, gender, country], (err, results) => {
       if (err) {
         console.error('Error creating user:', err);
         return reject(err);

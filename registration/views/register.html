@@ -51,6 +51,39 @@
     <label for="password">Password:</label>
     <input type="password" id="password" name="password"  required><br>
 
+    <div>
+      <label for="dob">Дата народження:</label>
+      <input type="date" id="dob" name="dob" required>
+    </div>
+  
+    <div>
+      <label for="gender">Чоловік/Жінка:</label>
+      <select id="gender" name="gender" required>
+        <option value="male">Чоловік</option>
+        <option value="female">Жінка</option>
+      </select>
+    </div>
+  
+    <div>
+      <label for="country">Країна:</label>
+      <select id="country" name="country" required>
+        <option value="USA">США</option>
+        <option value="UK">Великобританія</option>
+        <option value="Germany">Німеччина</option>
+        <option value="UK">Україна</option>
+        <option value="France">Франція</option>
+        <option value="Italy">Італія</option>
+        <option value="Spain">Іспанія</option>
+        <option value="Japan">Японія</option>
+        <option value="China">Китай</option>
+        <option value="India">Індія</option>
+        <option value="Australia">Австралія</option>
+        <option value="Canada">Канада</option>
+        <option value="Other">Інший</option>
+
+      </select>
+    </div>
+
     <button type="submit">Register</button>
    
     <button type="button" onclick="window.location.href='/login'" >Login</button>
