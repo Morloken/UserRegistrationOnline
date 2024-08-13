@@ -8,7 +8,10 @@ router.get('/home', (req, res) => {
     return res.redirect('/login');
   }
 
-  res.sendFile(path.join(__dirname,'views',  'home.html')); 
+
+  // res.sendFile(path.join(__dirname,'views',  'home.html')); 
+
+  res.render('home', { user: req.session.user });
 });
 
 module.exports = router;
