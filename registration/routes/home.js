@@ -2,19 +2,35 @@ const express = require('express');
 const router = express.Router();
 const path = require('path');
 
+// router.get('/home', (req, res) => {
+//   if (!req.session.userId) {
+
+//     return res.redirect('/login');
+//   }
+
+
+ 
+
+
+//   res.render('home', { username: req.session.username });
+
+// });
+
+
 router.get('/home', (req, res) => {
-  if (!req.session.userId) {
-    // return res.redirect('../views/login.html');
-    return res.redirect('/login');
+  if (req.session.loggedin) {
+    const query = 'SELECT username FROM users WHERE id = ?';
+    db.query(query, [req.session.userId], (err, result) => {
+      if (err) throw err;
+      const username = result[0].username;
+      res.render('home', { username });
+      res.render('home', { username: `Welcome, ${username}!` });
+    });
+  } else {
+    res.send('Please login to view this page! Go to previous page for login!');
   }
-
-
-  // res.sendFile(path.join(__dirname,'views',  'home.html')); 
-
-  // res.sendFile(path.join(__dirname, 'views', 'userInfoLogic.js'));
-
-  // res.send('home', { user: req.session.user });
 });
+
 
 // router.get('/get-username', (req, res) => {
 //   if (req.session.username) {

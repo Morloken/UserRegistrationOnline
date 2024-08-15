@@ -5,7 +5,38 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Home</title>
   
+  <!--script for showing userbame-->
+  <!-- <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      let displayName = document.getElementById('displayName');
+      let displayEmail = document.getElementById('displayEmail');
+      let displayDOB = document.getElementById('displayDOB');
+      let displayGender = document.getElementById('displayGender');
+      let displayCountry = document.getElementById('displayCountry');
 
+      let user;
+     
+        
+      
+      const app = require('../config/db');
+      db.query('SELECT * FROM users WHERE username = ?', [req.session.username], (err, result) => {
+        if (err) throw err;
+        user = result[0];
+      });
+      
+      
+      displayName.textContent = user.username;
+      displayEmail.textContent = user.email;
+      displayDOB.textContent = user.dob;
+      displayGender.textContent = user.gender;
+      displayCountry.textContent = user.country;
+
+    });
+  </script> -->
+  <!--script for showing userbame-->
+
+   
+   
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -86,6 +117,7 @@
   <div class="userInfo">
    
     <h3 id="displayName">Welcome, default user!</h3>
+    <!-- <h3 id="displayName">Welcome, {{username}}!</h3> -->
     <p id="displayEmail">Email: default email</p>
     <p id="displayGender">Gender: default gender</p>
     <p id="displayCountry">Country: default country</p>
