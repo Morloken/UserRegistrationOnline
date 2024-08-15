@@ -22,6 +22,7 @@
   
 // });
 document.addEventListener('DOMContentLoaded', function() {
+    // fetch('/api/get-username')
     fetch('/get-username')
         .then(response => response.json())
         .then(data => {
