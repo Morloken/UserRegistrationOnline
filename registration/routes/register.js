@@ -24,9 +24,14 @@ router.post('/register', async (req, res) => {
 
   const query = 'INSERT INTO users (username, password, dob, gender, country) VALUES (?, ?, ?, ?, ?)';
   connection.query(query, [username, hashedPassword, dob, gender, country], (err) => {
-    if (err) throw err;
-    res.redirect('/login');
+    if (err){
+      // res.redirect('/login');
+      throw err;
+    
+    }
+    req.session.username = username;
 
+    res.redirect('/home');
   });
 });
 

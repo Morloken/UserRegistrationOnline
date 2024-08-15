@@ -14,5 +14,15 @@ router.get('/home', (req, res) => {
   res.render('home', { user: req.session.user });
 });
 
+router.get('/get-username', (req, res) => {
+  if (req.session.username) {
+    res.json({ username: req.session.username });
+  } else {
+    res.json({ username: null });
+  }
+});
+
+
+
 module.exports = router;
 
