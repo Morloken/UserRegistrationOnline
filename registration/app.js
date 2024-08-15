@@ -13,6 +13,19 @@ const app = express();
 const port = 3000;
 const router = express.Router();
 
+app.use(express.static(__dirname + '/views', {
+  setHeaders: function (res, path, stat) {
+      res.set('Content-Type', 'application/javascript');
+  }
+}));
+
+app.get('/get-username', (req, res) => {
+  const user = {
+      username: 'default user'
+  };
+  res.json(user);
+});
+
 router.use(bodyParser.urlencoded({ extended: true }));
 router.use(cookieParser());
 router.use(session({
@@ -56,6 +69,8 @@ router.get('/home', (req, res) => {
     
   }
 });
+
+
 
 
 

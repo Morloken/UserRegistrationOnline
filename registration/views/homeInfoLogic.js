@@ -22,16 +22,17 @@
   
 // });
 document.addEventListener('DOMContentLoaded', function() {
-  fetch('/get-username')
-      .then(response => response.json())
-      .then(data => {
-          const nickname = data.username;
-          if (nickname) {
-              document.getElementById('displayName').textContent = `Hello, ${nickname}!`;
-          } else {
-              document.getElementById('displayName').textContent = 'Hello, Guest!';
-          }
-      });
+    fetch('/get-username')
+        .then(response => response.json())
+        .then(data => {
+            const nickname = data.username;
+            if (nickname) {
+                document.getElementById('displayName').textContent = `Hello, ${nickname}!`;
+            } else {
+                document.getElementById('displayName').textContent = 'Hello, Guest!';
+            }
+        });
 });
+
 
 

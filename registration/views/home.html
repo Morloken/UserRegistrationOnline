@@ -4,8 +4,27 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Home</title>
-  <script src="homeInfoLogic.js" defer></script>
+  <script defer>
+    function getUsername() {
+      const xhr = new XMLHttpRequest();
+      xhr.open('GET', '/get-username', true);
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+          const response = JSON.parse(xhr.responseText);
+          const nickname = response.username;
+          if (nickname) {
+            document.getElementById('displayName').textContent = `Hello, ${nickname}!`;
+          } else {
+            document.getElementById('displayName').textContent = 'Hello, Guest!';
+          }
+        }
+      };
+      xhr.send();
+    }
+    getUsername();
   
+  </script>
+
   <style>
     body {
       font-family: Arial, sans-serif;
