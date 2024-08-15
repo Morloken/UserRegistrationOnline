@@ -11,16 +11,18 @@ router.get('/home', (req, res) => {
 
   // res.sendFile(path.join(__dirname,'views',  'home.html')); 
 
-  res.render('home', { user: req.session.user });
+  // res.sendFile(path.join(__dirname, 'views', 'userInfoLogic.js'));
+
+  // res.send('home', { user: req.session.user });
 });
 
-router.get('/get-username', (req, res) => {
-  if (req.session.username) {
-    res.json({ username: req.session.username });
-  } else {
-    res.json({ username: null });
-  }
-});
+// router.get('/get-username', (req, res) => {
+//   if (req.session.username) {
+//     res.json({ username: req.session.username });
+//   } else {
+//     res.json({ username: null });
+//   }
+// });
 
 
 

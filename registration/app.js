@@ -20,10 +20,36 @@ app.use(express.static(__dirname + '/views', {
 }));
 
 app.get('/get-username', (req, res) => {
-  const user = {
-      username: 'default user'
-  };
-  res.json(user);
+  
+  //function that gets username from database of the user and then puts it in the html file, in the #displayName
+
+  res.sendFile(path.join(__dirname, 'views', 'homeInfoLogic.js'));
+
+
+
+
+  // const user = {
+  //     username: 'default username'
+  // };
+  // res.json(user);
+
+  // function getUsername() {
+  //   const xhr = new XMLHttpRequest();
+  //   xhr.open('GET', '/get-username', true);
+  //   xhr.onreadystatechange = function() {
+  //     if (xhr.readyState === 4 && xhr.status === 200) {
+  //       const response = JSON.parse(xhr.responseText);
+  //       const nickname = response.username;
+  //       if (nickname) {
+  //         document.getElementById('displayName').textContent = `Hello, ${nickname}!`;
+  //       } else {
+  //         document.getElementById('displayName').textContent = 'Hello, Guest!';
+  //       }
+  //     }
+  //   };
+  //   xhr.send();
+  // }
+  // getUsername();
 });
 
 router.use(bodyParser.urlencoded({ extended: true }));
